@@ -9,11 +9,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// following code block registers the bus
 builder.Services.AddMassTransit(x =>
 {
     x.UsingRabbitMq((ctx, cfg) =>
     {
+        // host provided only and rest options left to default.
         cfg.Host("rabbitmq://localhost");
+
+        // provided host, virtualHost, and rmq host configurations. [NOTE]: '/' is a default virtualHost and if you create one and want to use that replace '/' with your own virualHost.
+        //cfg.Host("localhost", "/", h =>
+        //{
+        //    h.Username("guest");
+        //    h.Password("guest");
+        //});
     });
 });
 
